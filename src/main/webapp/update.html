@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>update.html</title>
+	
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  
+  <body>
+     <div class="contain">
+    	<div style="margin-top: 20px">
+    	<table class="table table-bordered " style="margin-top:10px">
+    	 <caption style="text-align:center;font-weight: 50px">更新Film</caption>
+  		<tr>
+  		<td>title</td><td><input type="text" id="title" name="title" required="required"></td>
+  		</tr>
+  		<tr>
+  		<td>description</td><td><input type="text" id="description" name="description"></td>
+  		</tr>
+  		<tr>
+  		<td>language</td><td><select style="width: 20%" id="language_id"  name="language_id" class="form-control col-sm-2"><option value="1">请选择</option></select>
+				</td>
+  		</tr>
+  		</table>
+  		<div class="control-group">
+					<div class="controls" style="float: right">
+  						<button type="button" onclick="history.back()" class="btn btn-info">返回列表</button>
+						<button class="btn" type="submit" id="update">确认更新</button>
+					</div>
+				</div>
+  		</div>
+    </div>
+  </body>
+ <script id="languageTemplate" type="application/html">
+	<option></option>
+</script>
+<script>
+	function showLan(){
+		$.ajax({
+			url : "/Exam-12714-20170106-1/lan/selectLanguage",
+			type : "GET",
+			dataType : "json",
+			contextType:"application/json",
+			success : function(data) {
+				 for (var item of data) {
+                        var $template = $($('#languageTemplate').html()).clone();
+                        $template.val(item.language_id);
+                        $template.text(item.name);
+                        $('#language_id').append($template);
+                    }
+			}
+		});
+	}
+  	$('document').ready(function() {
+  		showLan();
+		$('#update').click(function() {
+			updateFilm({
+				id : GetQueryString("id"),
+				title : $('#title').val(),
+				description : $('#description').val(),
+				language_id : $('#language_id').val()
+			});
+		});
+	});
+
+	function GetQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null)
+			return unescape(r[2]);
+		return null;
+	}
+
+	function updateFilm(updateInfo) {
+		var defaultArg = {
+			title : "",
+			description : "",
+			language_id : 1
+		};
+		updateInfo = $.extend({}, defaultArg, updateInfo);
+		$.ajax({
+			url : "/Exam-12714-20170106-1/film/update",
+			type : "GET",
+			dataType : "json",
+			data : updateInfo,
+			success : function(data) {
+				alert("修改成功");
+			},
+			error:function(){
+				alert("修改失败");
+			}
+		});
+	}
+</script>
+</html>

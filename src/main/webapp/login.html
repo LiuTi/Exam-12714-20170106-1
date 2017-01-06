@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>登陆页面</title>
+	<meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+  </head>
+  
+  <body>
+  <div style="width:100%;text-align:center;height:100%">
+  
+  	<div style="height:80px;background-color: gray;margin-top:0">
+  		<h1>欢迎登陆电影租赁系统</h1>
+  	</div>
+   <div class="container-fluid" style="height:500px;background-color: #00caca">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="form-horizontal" style="">
+				<div class="control-group">
+					 <label class="control-label" style="margin: 15px;">first_name:</label>
+					<div class="controls" style="margin: 15px">
+						<input id="first_name" name="first_name" type="text" />
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn" id="login" >登陆</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  </div>
+  
+</div>
+  </body>
+ <script>
+		$('document').ready(function () {
+            $('#login').click(function() {
+            	checkLogin({
+                  first_name: $('#first_name').val()
+            });
+        });
+      });
+        
+        function checkLogin(loginInfo) {
+            var defaultArg = {
+                first_name: "",
+            };
+            loginInfo = $.extend({}, defaultArg, loginInfo);
+            $.ajax({
+            	aysnc:false,
+                url: "/Exam-12714-20170106-1/film/loginin",
+                type: "GET",
+                dataType: "json",
+                data: loginInfo,
+                success: function (data) {
+                	window.location=data;
+                },
+                 error:function(){
+                 	window.alert('error');
+                 }
+            });
+        }
+        
+	</script>
+</html>

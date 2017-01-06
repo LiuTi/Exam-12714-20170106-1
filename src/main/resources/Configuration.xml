@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- 全局属性设置 -->
+	<settings>
+		<setting name="useColumnLabel" value="true"/>
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="com.hand.bean.Film" alias="film"/>
+		<typeAlias type="com.hand.bean.Customer" alias="customer"/>
+		<typeAlias type="com.hand.bean.Language" alias="language"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="com/hand/mapper/FilmMapper.xml" />
+		<mapper resource="com/hand/mapper/CustomerMapper.xml" />
+		<mapper resource="com/hand/mapper/LanguageMapper.xml" />
+	</mappers>
+	
+</configuration>

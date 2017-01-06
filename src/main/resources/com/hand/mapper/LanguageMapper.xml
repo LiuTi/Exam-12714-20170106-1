@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hand.mapper.LanguageMapper">
+    <resultMap id="languageMap" type="language">
+        <id column="language_id" property="language_id" javaType="java.lang.Integer"/>
+        <result column="name" property="name" javaType="java.lang.String"/>
+     </resultMap>
+     <select id="selectLanguage" resultMap="languageMap">
+        SELECT language_id,name FROM language
+    </select>
+   </mapper>
